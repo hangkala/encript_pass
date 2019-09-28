@@ -43,15 +43,27 @@ public class Encode_SHA1 {
 	}
 	
 	public String encodeBase64(String pass, String salt) throws NoSuchAlgorithmException {
-		String encodePass = "";
-		String firstEncode = encodeSHA1(pass, salt);
-		encodePass = Base64.getEncoder().encodeToString(firstEncode.getBytes());
-		return encodePass;
+		try {
+			String encodePass = "";
+			String firstEncode = encodeSHA1(pass, salt);
+			encodePass = Base64.getEncoder().encodeToString(firstEncode.getBytes());
+			return encodePass;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NoSuchAlgorithmException();
+		}
 	}
 	
 	public boolean validatePass(String inputPass, String securePass, String salt) throws NoSuchAlgorithmException {
-		String newPass = encodeBase64(inputPass, salt);
-		return newPass.equals(securePass);
+		try {
+			String newPass = encodeBase64(inputPass, salt);
+			return newPass.equals(securePass);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NoSuchAlgorithmException();
+		}
 	}
 
 	/**
